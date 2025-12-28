@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "noverification",
+  "version": "${version}",
+  "name": "No Verification Client",
+  "description": "A Minecraft client that bypasses online verification for offline servers",
+  "authors": [
+    "Miggo65"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Miggo65/minecraftclient-noverification"
+  },
+  "license": "MIT",
+  "icon": "assets/noverification/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.miggo65.noverification.NoVerificationClient"
+    ]
+  },
+  "mixins": [
+    "noverification.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "fabric-api": "*",
+    "minecraft": "~1.20.4",
+    "java": ">=17"
+  }
+}
