@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.miggo65'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
+}
+
+application {
+    mainClass = 'com.miggo65.launcher.MinecraftLauncher'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+// Task to create a fat JAR with all dependencies
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.miggo65.launcher.MinecraftLauncher',
+            'Implementation-Title': 'Minecraft No Verification Launcher',
+            'Implementation-Version': version
+        )
+    }
+    
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+    
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    
+    archiveBaseName = 'minecraft-noverification-launcher'
+}
+
+// Task to run the launcher
+task runLauncher(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.miggo65.launcher.MinecraftLauncher'
+}
